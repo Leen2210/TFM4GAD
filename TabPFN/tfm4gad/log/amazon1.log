@@ -1,0 +1,59 @@
+Set random seed to 0
+Loaded config for dataset=amazon: {'n_anomalies': 20, 'feat_trans': 'no', 'augmentation': {'enable': True, 'neighbor': {'enable': True, 'type': 'bwgnn', 'num_layers': 1, 'agg': 'mean', 'sc': False}, 'degree': {'enable': True, 'log': True}, 'pagerank': {'enable': True, 'alpha': 0.85, 'max_iterations': 100, 'tol': 1e-06, 'log': True, 'cache_dir': '/workspace/datasets/pagerank_cache'}, 'laplacian_pe': {'enable': True, 'k': 16, 'cache_dir': '/workspace/datasets/lap_pe_cache', 'approx_threshold': 100000, 'approx_method': 'randomized_svd'}}, 'batch_size': 2048}
+Loaded graph with 11944 nodes, splits=10
+Applying configurable feature augmentation...
+Feature augmentation done, initial_dim=25, final_dim=68
+
+=== Split 1/10 ===
+Train size=100, Test size=8439
+Initializing TabPFN classifier, version=ModelVersion.V2_5, model_ckpt=../ckpts/tabpfn-v2.5-classifier-v2.5_default.ckpt
+AUROC=96.07%, AUPRC=86.12%, RecK=77.34%
+
+=== Split 2/10 ===
+Train size=100, Test size=8439
+Initializing TabPFN classifier, version=ModelVersion.V2_5, model_ckpt=../ckpts/tabpfn-v2.5-classifier-v2.5_default.ckpt
+AUROC=94.93%, AUPRC=86.06%, RecK=80.67%
+
+=== Split 3/10 ===
+Train size=100, Test size=8439
+Initializing TabPFN classifier, version=ModelVersion.V2_5, model_ckpt=../ckpts/tabpfn-v2.5-classifier-v2.5_default.ckpt
+AUROC=96.95%, AUPRC=86.84%, RecK=76.82%
+
+=== Split 4/10 ===
+Train size=100, Test size=8439
+Initializing TabPFN classifier, version=ModelVersion.V2_5, model_ckpt=../ckpts/tabpfn-v2.5-classifier-v2.5_default.ckpt
+AUROC=97.60%, AUPRC=90.77%, RecK=83.74%
+
+=== Split 5/10 ===
+Train size=100, Test size=8439
+Initializing TabPFN classifier, version=ModelVersion.V2_5, model_ckpt=../ckpts/tabpfn-v2.5-classifier-v2.5_default.ckpt
+AUROC=95.27%, AUPRC=86.87%, RecK=81.05%
+
+=== Split 6/10 ===
+Train size=100, Test size=8439
+Initializing TabPFN classifier, version=ModelVersion.V2_5, model_ckpt=../ckpts/tabpfn-v2.5-classifier-v2.5_default.ckpt
+AUROC=96.90%, AUPRC=86.13%, RecK=75.80%
+
+=== Split 7/10 ===
+Train size=100, Test size=8439
+Initializing TabPFN classifier, version=ModelVersion.V2_5, model_ckpt=../ckpts/tabpfn-v2.5-classifier-v2.5_default.ckpt
+AUROC=96.24%, AUPRC=87.98%, RecK=81.82%
+
+=== Split 8/10 ===
+Train size=100, Test size=8439
+Initializing TabPFN classifier, version=ModelVersion.V2_5, model_ckpt=../ckpts/tabpfn-v2.5-classifier-v2.5_default.ckpt
+AUROC=96.98%, AUPRC=88.73%, RecK=80.92%
+
+=== Split 9/10 ===
+Train size=100, Test size=8439
+Initializing TabPFN classifier, version=ModelVersion.V2_5, model_ckpt=../ckpts/tabpfn-v2.5-classifier-v2.5_default.ckpt
+AUROC=94.75%, AUPRC=84.87%, RecK=78.87%
+
+=== Split 10/10 ===
+Train size=100, Test size=8439
+Initializing TabPFN classifier, version=ModelVersion.V2_5, model_ckpt=../ckpts/tabpfn-v2.5-classifier-v2.5_default.ckpt
+AUROC=95.74%, AUPRC=87.19%, RecK=81.56%
+
+=== Final Summary ===
+AUROC=96.14±0.92, AUPRC=87.16±1.58, RecK=79.86±2.41
+
