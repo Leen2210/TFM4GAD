@@ -1,0 +1,7 @@
+# Eksperimen 5: TabPFNv2.5 tanpa komponen graf (32 fitur asli YelpChi)
+default:
+  n_anomalies: 20
+  feat_trans: "no"
+  augmentation:
+    enable: false
+  batch_size: 2048
