@@ -1,0 +1,59 @@
+Set random seed to 0
+Loaded config for dataset=yelp: {'n_anomalies': 20, 'feat_trans': 'no', 'augmentation': {'enable': False}, 'batch_size': 2048}
+Loaded graph with 45954 nodes, splits=10
+[exp4] split_file=../../splits/yelp_exp4_nested.json | n_labels=50 (10 anomali) | 10 split | test tetap 45754 node | seed split=0
+Using raw node features, final_dim=32
+
+=== Split 1/10 ===
+Train size=50, Test size=45754
+Initializing TabPFN classifier, version=ModelVersion.V2_5, model_ckpt=../ckpts/tabpfn-v2.5-classifier-v2.5_default.ckpt
+AUROC=67.11%, AUPRC=24.73%, RecK=28.90%
+
+=== Split 2/10 ===
+Train size=50, Test size=45754
+Initializing TabPFN classifier, version=ModelVersion.V2_5, model_ckpt=../ckpts/tabpfn-v2.5-classifier-v2.5_default.ckpt
+AUROC=58.48%, AUPRC=20.27%, RecK=23.85%
+
+=== Split 3/10 ===
+Train size=50, Test size=45754
+Initializing TabPFN classifier, version=ModelVersion.V2_5, model_ckpt=../ckpts/tabpfn-v2.5-classifier-v2.5_default.ckpt
+AUROC=69.26%, AUPRC=27.13%, RecK=29.79%
+
+=== Split 4/10 ===
+Train size=50, Test size=45754
+Initializing TabPFN classifier, version=ModelVersion.V2_5, model_ckpt=../ckpts/tabpfn-v2.5-classifier-v2.5_default.ckpt
+AUROC=66.35%, AUPRC=22.78%, RecK=26.37%
+
+=== Split 5/10 ===
+Train size=50, Test size=45754
+Initializing TabPFN classifier, version=ModelVersion.V2_5, model_ckpt=../ckpts/tabpfn-v2.5-classifier-v2.5_default.ckpt
+AUROC=70.51%, AUPRC=28.77%, RecK=32.06%
+
+=== Split 6/10 ===
+Train size=50, Test size=45754
+Initializing TabPFN classifier, version=ModelVersion.V2_5, model_ckpt=../ckpts/tabpfn-v2.5-classifier-v2.5_default.ckpt
+AUROC=57.71%, AUPRC=23.98%, RecK=24.27%
+
+=== Split 7/10 ===
+Train size=50, Test size=45754
+Initializing TabPFN classifier, version=ModelVersion.V2_5, model_ckpt=../ckpts/tabpfn-v2.5-classifier-v2.5_default.ckpt
+AUROC=72.53%, AUPRC=34.84%, RecK=38.41%
+
+=== Split 8/10 ===
+Train size=50, Test size=45754
+Initializing TabPFN classifier, version=ModelVersion.V2_5, model_ckpt=../ckpts/tabpfn-v2.5-classifier-v2.5_default.ckpt
+AUROC=72.20%, AUPRC=31.04%, RecK=37.61%
+
+=== Split 9/10 ===
+Train size=50, Test size=45754
+Initializing TabPFN classifier, version=ModelVersion.V2_5, model_ckpt=../ckpts/tabpfn-v2.5-classifier-v2.5_default.ckpt
+AUROC=71.07%, AUPRC=32.98%, RecK=35.20%
+
+=== Split 10/10 ===
+Train size=50, Test size=45754
+Initializing TabPFN classifier, version=ModelVersion.V2_5, model_ckpt=../ckpts/tabpfn-v2.5-classifier-v2.5_default.ckpt
+AUROC=58.79%, AUPRC=19.20%, RecK=22.46%
+
+=== Final Summary ===
+AUROC=66.40±5.61, AUPRC=26.57±5.03, RecK=29.89±5.49
+
