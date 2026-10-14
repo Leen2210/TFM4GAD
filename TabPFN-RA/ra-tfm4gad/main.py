@@ -1,8 +1,10 @@
 import argparse
 import os
+import sys
 from pathlib import Path
 
 import numpy as np
+import torch
 from tqdm import tqdm
 
 from tabpfn import TabPFNClassifier
@@ -49,7 +51,17 @@ def main():
                         help="Operator penggabungan antar-relasi (Eksperimen 6)")
     parser.add_argument('--tag', type=str, default='',
                         help="Label tambahan untuk nama berkas log")
+    
+    # ---- Eksperimen 4 (default mati: tanpa argumen ini perilaku lama tidak berubah) ----
+    parser.add_argument('--split_file', type=str, default=None,
+                        help="File JSON dari exp4_splits.py (Eksperimen 4)")
+    parser.add_argument('--n_labels', type=int, default=None, choices=[50, 100, 200],
+                        help="Ukuran in-context set; wajib bersama --split_file")
     args = parser.parse_args()
+    if (args.split_file is None) != (args.n_labels is None):
+        raise SystemExit("--split_file dan --n_labels harus diberikan bersamaan")
+    if args.split_file and not args.tag:
+        raise SystemExit("Beri --tag agar log Eksperimen 4 tidak tercampur ke log lama")
 
     relations = [r.strip() for r in args.relations.split(',') if r.strip()]
     unknown = [r for r in relations if r not in RELATION_ORDER]
@@ -91,6 +103,14 @@ def main():
     n_splits = test_masks.shape[1]
     logger.info(f"Graf homogen: {g.num_nodes()} node, {g.num_edges()} edge | splits={n_splits}")
 
+    # ---------------- Eksperimen 4: ganti train mask ---------------- #
+    if args.split_file:
+        sys.path.append(str(Path(__file__).resolve().parents[2]))  # root repo
+        from exp4_splits import load_train_masks
+        train_masks = torch.from_numpy(load_train_masks(
+            args.split_file, args.n_labels, y.cpu().numpy(),
+            train_masks.cpu().numpy(), test_masks.cpu().numpy(), log=logger.info))
+    
     # ---------------- Augmentasi ---------------- #
     aug_conf = conf['augmentation']
     features = augment_node_features_ra(
@@ -157,7 +177,8 @@ def main():
     logger.info(f"run_id={run_id}")
     logger.info(f"AUROC={auroc_m:.2f}±{auroc_s:.2f}, AUPRC={auprc_m:.2f}±{auprc_s:.2f}, "
                 f"RecK={reck_m:.2f}±{reck_s:.2f}")
-    logger.info(f"Baseline internal YelpChi: AUROC=72.20±3.37, AUPRC=32.24±3.99\n")
+    if args.n_labels in (None, 100):
+        logger.info(f"Baseline internal YelpChi: AUROC=72.20±3.37, AUPRC=32.24±3.99\n")
 
 
 if __name__ == "__main__":

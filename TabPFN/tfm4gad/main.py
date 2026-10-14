@@ -50,12 +50,25 @@ def main():
     parser.add_argument('--model_version', type=str, choices=['v2', 'v2.5'], default='v2.5',
                         help="Which TabPFN version to use")
     parser.add_argument('--seed', type=int, default=0, help="Random seed")
+    
+    # ---- Eksperimen 4 (default mati: tanpa argumen ini perilaku lama tidak berubah) ----
+    parser.add_argument('--split_file', type=str, default=None,
+                        help="File JSON dari exp4_splits.py (Eksperimen 4)")
+    parser.add_argument('--n_labels', type=int, default=None, choices=[50, 100, 200],
+                        help="Ukuran in-context set; wajib bersama --split_file")
+    parser.add_argument('--tag', type=str, default='',
+                        help="Bila diisi, log ditulis ke log/<dataset>_<tag>.log")
     args = parser.parse_args()
+    if (args.split_file is None) != (args.n_labels is None):
+        raise SystemExit("--split_file dan --n_labels harus diberikan bersamaan")
+    if args.split_file and not args.tag:
+        raise SystemExit("Beri --tag agar log Eksperimen 4 tidak tercampur ke log lama")
 
     # ---------------- Setup logging and seed ---------------- #
     log_dir = './log'
     os.makedirs(log_dir, exist_ok=True)
-    log_path = os.path.join('log', f'{args.dataset}1.log')
+    log_name = f'{args.dataset}_{args.tag}.log' if args.tag else f'{args.dataset}1.log'
+    log_path = os.path.join('log', log_name)
     logger = get_logger(log_path, log_level=1, name="MainLogger", mode='a')
     set_seed(args.seed)
     logger.info(f"Set random seed to {args.seed}")
@@ -77,6 +90,15 @@ def main():
     )
     n_splits = test_masks.shape[1]
     logger.info(f"Loaded graph with {g.num_nodes()} nodes, splits={n_splits}")
+
+    
+    # ---------------- Eksperimen 4: ganti train mask ---------------- #
+    if args.split_file:
+        sys.path.append(str(Path(__file__).resolve().parents[2]))  # root repo
+        from exp4_splits import load_train_masks
+        train_masks = torch.from_numpy(load_train_masks(
+            args.split_file, args.n_labels, y.cpu().numpy(),
+            train_masks.cpu().numpy(), test_masks.cpu().numpy(), log=logger.info))
 
     # ---------------- Feature augmentation ---------------- #
     if conf.get('augmentation', {}).get('enable', False):
