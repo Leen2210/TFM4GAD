@@ -1,0 +1,59 @@
+
+########## RUN yelp_ra_rur-rtr_concat ##########
+Set random seed to 0
+Config dataset=yelp: {'n_anomalies': 20, 'feat_trans': 'no', 'augmentation': {'enable': True, 'neighbor': {'enable': True, 'type': 'bwgnn', 'num_layers': 2, 'agg': 'mean', 'sc': False}, 'degree': {'enable': True, 'log': True}, 'pagerank': {'enable': True, 'alpha': 0.85, 'max_iterations': 100, 'tol': 1e-06, 'log': True, 'cache_dir': '/workspace/datasets/pagerank_cache'}, 'laplacian_pe': {'enable': True, 'k': 16, 'cache_dir': '/workspace/datasets/lap_pe_cache', 'approx_threshold': 100000, 'approx_method': 'randomized_svd'}}, 'batch_size': 2048}
+relations=['rur', 'rtr'] | merge_op=concat
+[guard] penjajaran node hetero/homo OK (n=45954)
+[relasi] rur  (net_rur): 144584 edge setelah praproses
+[relasi] rtr  (net_rtr): 1193186 edge setelah praproses
+Graf homogen: 45954 node, 7739912 edge | splits=10
+[xnbr] rur : (45954, 96)
+[xnbr] rtr : (45954, 96)
+[xnbr] setelah merge_op='concat': (45954, 192)
+initial_dim=32, final_dim=210 (diharapkan 210)
+
+=== Split 1/10 ===
+Train size=100, Test size=45754
+AUROC=82.99%, AUPRC=44.51%, RecK=44.64%
+
+=== Split 2/10 ===
+Train size=100, Test size=45754
+AUROC=82.51%, AUPRC=44.10%, RecK=45.14%
+
+=== Split 3/10 ===
+Train size=100, Test size=45754
+AUROC=78.85%, AUPRC=44.78%, RecK=44.78%
+
+=== Split 4/10 ===
+Train size=100, Test size=45754
+AUROC=80.40%, AUPRC=42.13%, RecK=46.04%
+
+=== Split 5/10 ===
+Train size=100, Test size=45754
+AUROC=82.97%, AUPRC=42.35%, RecK=40.85%
+
+=== Split 6/10 ===
+Train size=100, Test size=45754
+AUROC=77.16%, AUPRC=33.81%, RecK=34.28%
+
+=== Split 7/10 ===
+Train size=100, Test size=45754
+AUROC=82.26%, AUPRC=49.25%, RecK=48.79%
+
+=== Split 8/10 ===
+Train size=100, Test size=45754
+AUROC=81.58%, AUPRC=44.78%, RecK=43.86%
+
+=== Split 9/10 ===
+Train size=100, Test size=45754
+AUROC=86.84%, AUPRC=54.90%, RecK=52.54%
+
+=== Split 10/10 ===
+Train size=100, Test size=45754
+AUROC=83.15%, AUPRC=50.55%, RecK=49.27%
+
+=== Final Summary ===
+run_id=yelp_ra_rur-rtr_concat
+AUROC=81.87±2.51, AUPRC=45.11±5.37, RecK=45.02±4.74
+Baseline internal YelpChi: AUROC=72.20±3.37, AUPRC=32.24±3.99
+

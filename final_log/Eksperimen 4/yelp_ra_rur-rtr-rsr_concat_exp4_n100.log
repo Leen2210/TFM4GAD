@@ -1,0 +1,62 @@
+
+########## RUN yelp_ra_rur-rtr-rsr_concat_exp4_n100 ##########
+Set random seed to 0
+Config dataset=yelp: {'n_anomalies': 20, 'feat_trans': 'no', 'augmentation': {'enable': True, 'neighbor': {'enable': True, 'type': 'bwgnn', 'num_layers': 2, 'agg': 'mean', 'sc': False}, 'degree': {'enable': True, 'log': True}, 'pagerank': {'enable': True, 'alpha': 0.85, 'max_iterations': 100, 'tol': 1e-06, 'log': True, 'cache_dir': '/workspace/datasets/pagerank_cache'}, 'laplacian_pe': {'enable': True, 'k': 16, 'cache_dir': '/workspace/datasets/lap_pe_cache', 'approx_threshold': 100000, 'approx_method': 'randomized_svd'}}, 'batch_size': 2048}
+relations=['rur', 'rtr', 'rsr'] | merge_op=concat
+[guard] penjajaran node hetero/homo OK (n=45954)
+[relasi] rur  (net_rur): 144584 edge setelah praproses
+[relasi] rtr  (net_rtr): 1193186 edge setelah praproses
+[relasi] rsr  (net_rsr): 6851440 edge setelah praproses
+Graf homogen: 45954 node, 7739912 edge | splits=10
+[exp4] split_file=../../splits/yelp_exp4_nested.json | n_labels=100 (20 anomali) | 10 split | test tetap 45754 node | seed split=0
+[xnbr] rur : (45954, 96)
+[xnbr] rtr : (45954, 96)
+[xnbr] rsr : (45954, 96)
+[xnbr] setelah merge_op='concat': (45954, 288)
+initial_dim=32, final_dim=306 (diharapkan 306)
+
+=== Split 1/10 ===
+Train size=100, Test size=45754
+AUROC=82.93%, AUPRC=44.44%, RecK=45.04%
+
+=== Split 2/10 ===
+Train size=100, Test size=45754
+AUROC=82.01%, AUPRC=42.59%, RecK=45.26%
+
+=== Split 3/10 ===
+Train size=100, Test size=45754
+AUROC=78.59%, AUPRC=43.94%, RecK=42.43%
+
+=== Split 4/10 ===
+Train size=100, Test size=45754
+AUROC=80.93%, AUPRC=42.02%, RecK=46.60%
+
+=== Split 5/10 ===
+Train size=100, Test size=45754
+AUROC=83.44%, AUPRC=44.72%, RecK=44.28%
+
+=== Split 6/10 ===
+Train size=100, Test size=45754
+AUROC=78.52%, AUPRC=35.90%, RecK=36.30%
+
+=== Split 7/10 ===
+Train size=100, Test size=45754
+AUROC=82.28%, AUPRC=51.27%, RecK=49.42%
+
+=== Split 8/10 ===
+Train size=100, Test size=45754
+AUROC=81.92%, AUPRC=46.34%, RecK=45.29%
+
+=== Split 9/10 ===
+Train size=100, Test size=45754
+AUROC=86.14%, AUPRC=55.42%, RecK=53.74%
+
+=== Split 10/10 ===
+Train size=100, Test size=45754
+AUROC=81.97%, AUPRC=49.62%, RecK=48.37%
+
+=== Final Summary ===
+run_id=yelp_ra_rur-rtr-rsr_concat_exp4_n100
+AUROC=81.87±2.12, AUPRC=45.63±5.16, RecK=45.67±4.34
+Baseline internal YelpChi: AUROC=72.20±3.37, AUPRC=32.24±3.99
+

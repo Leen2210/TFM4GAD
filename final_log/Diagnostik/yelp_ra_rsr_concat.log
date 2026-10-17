@@ -1,0 +1,57 @@
+
+########## RUN yelp_ra_rsr_concat ##########
+Set random seed to 0
+Config dataset=yelp: {'n_anomalies': 20, 'feat_trans': 'no', 'augmentation': {'enable': True, 'neighbor': {'enable': True, 'type': 'bwgnn', 'num_layers': 2, 'agg': 'mean', 'sc': False}, 'degree': {'enable': True, 'log': True}, 'pagerank': {'enable': True, 'alpha': 0.85, 'max_iterations': 100, 'tol': 1e-06, 'log': True, 'cache_dir': '/workspace/datasets/pagerank_cache'}, 'laplacian_pe': {'enable': True, 'k': 16, 'cache_dir': '/workspace/datasets/lap_pe_cache', 'approx_threshold': 100000, 'approx_method': 'randomized_svd'}}, 'batch_size': 2048}
+relations=['rsr'] | merge_op=concat
+[guard] penjajaran node hetero/homo OK (n=45954)
+[relasi] rsr  (net_rsr): 6851440 edge setelah praproses
+Graf homogen: 45954 node, 7739912 edge | splits=10
+[xnbr] rsr : (45954, 96)
+[xnbr] setelah merge_op='concat': (45954, 96)
+initial_dim=32, final_dim=114 (diharapkan 114)
+
+=== Split 1/10 ===
+Train size=100, Test size=45754
+AUROC=76.12%, AUPRC=35.93%, RecK=37.88%
+
+=== Split 2/10 ===
+Train size=100, Test size=45754
+AUROC=74.86%, AUPRC=33.55%, RecK=35.74%
+
+=== Split 3/10 ===
+Train size=100, Test size=45754
+AUROC=74.43%, AUPRC=36.36%, RecK=36.40%
+
+=== Split 4/10 ===
+Train size=100, Test size=45754
+AUROC=74.64%, AUPRC=34.39%, RecK=36.94%
+
+=== Split 5/10 ===
+Train size=100, Test size=45754
+AUROC=74.00%, AUPRC=35.79%, RecK=36.40%
+
+=== Split 6/10 ===
+Train size=100, Test size=45754
+AUROC=66.77%, AUPRC=25.18%, RecK=28.82%
+
+=== Split 7/10 ===
+Train size=100, Test size=45754
+AUROC=70.50%, AUPRC=33.80%, RecK=34.87%
+
+=== Split 8/10 ===
+Train size=100, Test size=45754
+AUROC=69.46%, AUPRC=31.82%, RecK=32.83%
+
+=== Split 9/10 ===
+Train size=100, Test size=45754
+AUROC=74.24%, AUPRC=37.77%, RecK=39.88%
+
+=== Split 10/10 ===
+Train size=100, Test size=45754
+AUROC=75.69%, AUPRC=36.33%, RecK=36.90%
+
+=== Final Summary ===
+run_id=yelp_ra_rsr_concat
+AUROC=73.07±2.92, AUPRC=34.09±3.39, RecK=35.67±2.87
+Baseline internal YelpChi: AUROC=72.20±3.37, AUPRC=32.24±3.99
+

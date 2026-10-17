@@ -1,0 +1,61 @@
+
+########## RUN yelp_ra_rur-rtr-rsr_mean ##########
+Set random seed to 0
+Config dataset=yelp: {'n_anomalies': 20, 'feat_trans': 'no', 'augmentation': {'enable': True, 'neighbor': {'enable': True, 'type': 'bwgnn', 'num_layers': 2, 'agg': 'mean', 'sc': False}, 'degree': {'enable': True, 'log': True}, 'pagerank': {'enable': True, 'alpha': 0.85, 'max_iterations': 100, 'tol': 1e-06, 'log': True, 'cache_dir': '/workspace/datasets/pagerank_cache'}, 'laplacian_pe': {'enable': True, 'k': 16, 'cache_dir': '/workspace/datasets/lap_pe_cache', 'approx_threshold': 100000, 'approx_method': 'randomized_svd'}}, 'batch_size': 2048}
+relations=['rur', 'rtr', 'rsr'] | merge_op=mean
+[guard] penjajaran node hetero/homo OK (n=45954)
+[relasi] rur  (net_rur): 144584 edge setelah praproses
+[relasi] rtr  (net_rtr): 1193186 edge setelah praproses
+[relasi] rsr  (net_rsr): 6851440 edge setelah praproses
+Graf homogen: 45954 node, 7739912 edge | splits=10
+[xnbr] rur : (45954, 96)
+[xnbr] rtr : (45954, 96)
+[xnbr] rsr : (45954, 96)
+[xnbr] setelah merge_op='mean': (45954, 96)
+initial_dim=32, final_dim=114 (diharapkan 114)
+
+=== Split 1/10 ===
+Train size=100, Test size=45754
+AUROC=79.74%, AUPRC=42.20%, RecK=43.71%
+
+=== Split 2/10 ===
+Train size=100, Test size=45754
+AUROC=80.66%, AUPRC=41.57%, RecK=43.21%
+
+=== Split 3/10 ===
+Train size=100, Test size=45754
+AUROC=75.56%, AUPRC=39.62%, RecK=40.30%
+
+=== Split 4/10 ===
+Train size=100, Test size=45754
+AUROC=76.90%, AUPRC=40.50%, RecK=45.61%
+
+=== Split 5/10 ===
+Train size=100, Test size=45754
+AUROC=77.68%, AUPRC=39.40%, RecK=40.24%
+
+=== Split 6/10 ===
+Train size=100, Test size=45754
+AUROC=72.73%, AUPRC=31.60%, RecK=35.26%
+
+=== Split 7/10 ===
+Train size=100, Test size=45754
+AUROC=77.62%, AUPRC=43.74%, RecK=45.73%
+
+=== Split 8/10 ===
+Train size=100, Test size=45754
+AUROC=69.76%, AUPRC=28.99%, RecK=30.51%
+
+=== Split 9/10 ===
+Train size=100, Test size=45754
+AUROC=79.81%, AUPRC=48.05%, RecK=48.50%
+
+=== Split 10/10 ===
+Train size=100, Test size=45754
+AUROC=77.55%, AUPRC=41.83%, RecK=44.33%
+
+=== Final Summary ===
+run_id=yelp_ra_rur-rtr-rsr_mean
+AUROC=76.80±3.20, AUPRC=39.75±5.30, RecK=41.74±5.12
+Baseline internal YelpChi: AUROC=72.20±3.37, AUPRC=32.24±3.99
+
