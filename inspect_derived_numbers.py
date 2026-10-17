@@ -82,7 +82,7 @@ def ringkas(x):
 
 def main():
     ap = argparse.ArgumentParser()
-    ap.add_argument("--data_dir", type=str, default="../../datasets")
+    ap.add_argument("--data_dir", type=str, default="datasets")
     ap.add_argument("--num_layers", type=int, default=2,
                     help="Derajat C bank Beta Wavelet (icl.conf.yaml yelp = 2)")
     ap.add_argument("--dump_csv", type=str, default="",
@@ -252,7 +252,6 @@ def main():
 
     sep("SELESAI")
     print("Seluruh angka di atas sebelumnya dihitung tangan atau belum pernah dihitung.")
-    print("Salin keluaran ini ke berkas revisi agar Bab III punya jejak yang lengkap.")
 
 
 if __name__ == "__main__":
