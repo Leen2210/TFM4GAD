@@ -1,0 +1,146 @@
+[guard] penjajaran node hetero/homo OK (n=45954)
+[relasi] rur  (net_rur): 144584 edge setelah praproses
+[relasi] rtr  (net_rtr): 1193186 edge setelah praproses
+[relasi] rsr  (net_rsr): 6851440 edge setelah praproses
+[xnbr] rur : (45954, 96)
+[xnbr] rtr : (45954, 96)
+[xnbr] rsr : (45954, 96)
+[xnbr] setelah merge_op='concat': (45954, 288)
+[Cache] Loaded LapPE from '/workspace/datasets/lap_pe_cache/yelp_lap_pe.pt' (cached_k=16) in 0.08 seconds
+[guard] penjajaran node hetero/homo OK (n=45954)
+[relasi] rur  (net_rur): 144584 edge setelah praproses
+[relasi] rtr  (net_rtr): 1193186 edge setelah praproses
+[relasi] rsr  (net_rsr): 6851440 edge setelah praproses
+[xnbr] rur : (45954, 96)
+[xnbr] rtr : (45954, 96)
+[xnbr] rsr : (45954, 96)
+[xnbr] setelah merge_op='concat': (45954, 288)
+[Cache] Loaded LapPE from '/workspace/datasets_exp7/rtr_k3_s0/lap_pe_cache/yelp_lap_pe.pt' (cached_k=16) in 0.07 seconds
+
+== datasets_exp7/rtr_k3_s0/ (relasi diacak: rtr, kolom 96..191)
+final_dim asli=306, acak=306, diharapkan=306
+kolom di luar blok identik bit-per-bit: True (selisih maks 0.000e+00)
+blok rtr berubah: True
+LOLOS
+[guard] penjajaran node hetero/homo OK (n=45954)
+[relasi] rur  (net_rur): 144584 edge setelah praproses
+[relasi] rtr  (net_rtr): 1193186 edge setelah praproses
+[relasi] rsr  (net_rsr): 6851440 edge setelah praproses
+[xnbr] rur : (45954, 96)
+[xnbr] rtr : (45954, 96)
+[xnbr] rsr : (45954, 96)
+[xnbr] setelah merge_op='concat': (45954, 288)
+[Cache] Loaded LapPE from '/workspace/datasets_exp7/rur_k0.25_s0/lap_pe_cache/yelp_lap_pe.pt' (cached_k=16) in 0.04 seconds
+
+== datasets_exp7/rur_k0.25_s0/ (relasi diacak: rur, kolom 0..95)
+final_dim asli=306, acak=306, diharapkan=306
+kolom di luar blok identik bit-per-bit: True (selisih maks 0.000e+00)
+blok rur berubah: True
+LOLOS
+[guard] penjajaran node hetero/homo OK (n=45954)
+[relasi] rur  (net_rur): 144584 edge setelah praproses
+[relasi] rtr  (net_rtr): 1193186 edge setelah praproses
+[relasi] rsr  (net_rsr): 6851440 edge setelah praproses
+[xnbr] rur : (45954, 96)
+[xnbr] rtr : (45954, 96)
+[xnbr] rsr : (45954, 96)
+[xnbr] setelah merge_op='concat': (45954, 288)
+[Cache] Loaded LapPE from '/workspace/datasets_exp7/rur_k0.25_s1/lap_pe_cache/yelp_lap_pe.pt' (cached_k=16) in 0.05 seconds
+
+== datasets_exp7/rur_k0.25_s1/ (relasi diacak: rur, kolom 0..95)
+final_dim asli=306, acak=306, diharapkan=306
+kolom di luar blok identik bit-per-bit: True (selisih maks 0.000e+00)
+blok rur berubah: True
+LOLOS
+[guard] penjajaran node hetero/homo OK (n=45954)
+[relasi] rur  (net_rur): 144584 edge setelah praproses
+[relasi] rtr  (net_rtr): 1193186 edge setelah praproses
+[relasi] rsr  (net_rsr): 6851440 edge setelah praproses
+[xnbr] rur : (45954, 96)
+[xnbr] rtr : (45954, 96)
+[xnbr] rsr : (45954, 96)
+[xnbr] setelah merge_op='concat': (45954, 288)
+[Cache] Loaded LapPE from '/workspace/datasets_exp7/rur_k0.5_s0/lap_pe_cache/yelp_lap_pe.pt' (cached_k=16) in 0.05 seconds
+
+== datasets_exp7/rur_k0.5_s0/ (relasi diacak: rur, kolom 0..95)
+final_dim asli=306, acak=306, diharapkan=306
+kolom di luar blok identik bit-per-bit: True (selisih maks 0.000e+00)
+blok rur berubah: True
+LOLOS
+[guard] penjajaran node hetero/homo OK (n=45954)
+[relasi] rur  (net_rur): 144584 edge setelah praproses
+[relasi] rtr  (net_rtr): 1193186 edge setelah praproses
+[relasi] rsr  (net_rsr): 6851440 edge setelah praproses
+[xnbr] rur : (45954, 96)
+[xnbr] rtr : (45954, 96)
+[xnbr] rsr : (45954, 96)
+[xnbr] setelah merge_op='concat': (45954, 288)
+[Cache] Loaded LapPE from '/workspace/datasets_exp7/rur_k0.5_s1/lap_pe_cache/yelp_lap_pe.pt' (cached_k=16) in 0.09 seconds
+
+== datasets_exp7/rur_k0.5_s1/ (relasi diacak: rur, kolom 0..95)
+final_dim asli=306, acak=306, diharapkan=306
+kolom di luar blok identik bit-per-bit: True (selisih maks 0.000e+00)
+blok rur berubah: True
+LOLOS
+[guard] penjajaran node hetero/homo OK (n=45954)
+[relasi] rur  (net_rur): 144584 edge setelah praproses
+[relasi] rtr  (net_rtr): 1193186 edge setelah praproses
+[relasi] rsr  (net_rsr): 6851440 edge setelah praproses
+[xnbr] rur : (45954, 96)
+[xnbr] rtr : (45954, 96)
+[xnbr] rsr : (45954, 96)
+[xnbr] setelah merge_op='concat': (45954, 288)
+[Cache] Loaded LapPE from '/workspace/datasets_exp7/rur_k1_s0/lap_pe_cache/yelp_lap_pe.pt' (cached_k=16) in 0.04 seconds
+
+== datasets_exp7/rur_k1_s0/ (relasi diacak: rur, kolom 0..95)
+final_dim asli=306, acak=306, diharapkan=306
+kolom di luar blok identik bit-per-bit: True (selisih maks 0.000e+00)
+blok rur berubah: True
+LOLOS
+[guard] penjajaran node hetero/homo OK (n=45954)
+[relasi] rur  (net_rur): 144584 edge setelah praproses
+[relasi] rtr  (net_rtr): 1193186 edge setelah praproses
+[relasi] rsr  (net_rsr): 6851440 edge setelah praproses
+[xnbr] rur : (45954, 96)
+[xnbr] rtr : (45954, 96)
+[xnbr] rsr : (45954, 96)
+[xnbr] setelah merge_op='concat': (45954, 288)
+[Cache] Loaded LapPE from '/workspace/datasets_exp7/rur_k1_s1/lap_pe_cache/yelp_lap_pe.pt' (cached_k=16) in 0.06 seconds
+
+== datasets_exp7/rur_k1_s1/ (relasi diacak: rur, kolom 0..95)
+final_dim asli=306, acak=306, diharapkan=306
+kolom di luar blok identik bit-per-bit: True (selisih maks 0.000e+00)
+blok rur berubah: True
+LOLOS
+[guard] penjajaran node hetero/homo OK (n=45954)
+[relasi] rur  (net_rur): 144584 edge setelah praproses
+[relasi] rtr  (net_rtr): 1193186 edge setelah praproses
+[relasi] rsr  (net_rsr): 6851440 edge setelah praproses
+[xnbr] rur : (45954, 96)
+[xnbr] rtr : (45954, 96)
+[xnbr] rsr : (45954, 96)
+[xnbr] setelah merge_op='concat': (45954, 288)
+[Cache] Loaded LapPE from '/workspace/datasets_exp7/rur_k3_s0/lap_pe_cache/yelp_lap_pe.pt' (cached_k=16) in 0.04 seconds
+
+== datasets_exp7/rur_k3_s0/ (relasi diacak: rur, kolom 0..95)
+final_dim asli=306, acak=306, diharapkan=306
+kolom di luar blok identik bit-per-bit: True (selisih maks 0.000e+00)
+blok rur berubah: True
+LOLOS
+[guard] penjajaran node hetero/homo OK (n=45954)
+[relasi] rur  (net_rur): 144584 edge setelah praproses
+[relasi] rtr  (net_rtr): 1193186 edge setelah praproses
+[relasi] rsr  (net_rsr): 6851440 edge setelah praproses
+[xnbr] rur : (45954, 96)
+[xnbr] rtr : (45954, 96)
+[xnbr] rsr : (45954, 96)
+[xnbr] setelah merge_op='concat': (45954, 288)
+[Cache] Loaded LapPE from '/workspace/datasets_exp7/rur_k3_s1/lap_pe_cache/yelp_lap_pe.pt' (cached_k=16) in 0.08 seconds
+
+== datasets_exp7/rur_k3_s1/ (relasi diacak: rur, kolom 0..95)
+final_dim asli=306, acak=306, diharapkan=306
+kolom di luar blok identik bit-per-bit: True (selisih maks 0.000e+00)
+blok rur berubah: True
+LOLOS
+
+Ringkasan: 9 dari 9 folder lolos

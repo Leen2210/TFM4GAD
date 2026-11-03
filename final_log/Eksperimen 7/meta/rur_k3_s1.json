@@ -1,0 +1,20 @@
+{
+  "relation": "rur",
+  "etype": "net_rur",
+  "k": 3.0,
+  "seed": 1,
+  "n_nodes": 45954,
+  "n_edges_undirected": 49315,
+  "n_swaps": 147945,
+  "pct_original_edges_kept": 0.46,
+  "H_before": 0.0036,
+  "H_after": 0.038,
+  "q_anomaly_edge_endpoints": 0.0196,
+  "H_expected_full_shuffle_2q(1-q)": 0.0384,
+  "H_random_label_2p(1-p)": 0.2484,
+  "shuffle_seconds": 1.8,
+  "networkx": "3.6.1",
+  "dgl": "2.5",
+  "source": "/workspace/datasets",
+  "created": "2026-11-02T12:41:09"
+}

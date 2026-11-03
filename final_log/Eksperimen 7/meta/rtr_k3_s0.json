@@ -1,0 +1,20 @@
+{
+  "relation": "rtr",
+  "etype": "net_rtr",
+  "k": 3.0,
+  "seed": 0,
+  "n_nodes": 45954,
+  "n_edges_undirected": 573616,
+  "n_swaps": 1720848,
+  "pct_original_edges_kept": 0.38,
+  "H_before": 0.2407,
+  "H_after": 0.2492,
+  "q_anomaly_edge_endpoints": 0.1461,
+  "H_expected_full_shuffle_2q(1-q)": 0.2495,
+  "H_random_label_2p(1-p)": 0.2484,
+  "shuffle_seconds": 22.7,
+  "networkx": "3.6.1",
+  "dgl": "2.5",
+  "source": "/workspace/datasets",
+  "created": "2026-11-02T12:47:10"
+}
