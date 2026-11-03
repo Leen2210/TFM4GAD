@@ -34,6 +34,42 @@ def run_single_test(clf, X_train, y_train, X_test, y_test, batch_size, logger):
     logger.info(f"AUROC={score['AUROC']:.2f}%, AUPRC={score['AUPRC']:.2f}%, RecK={score['RecK']:.2f}%")
     return score
 
+
+# ---------------- Eksperimen 7a ---------------- #
+ETYPE_7A = {"rur": "net_rur", "rtr": "net_rtr", "rsr": "net_rsr"}
+
+
+def relation_degree_columns(data_dir, dataset, relations, x, y, log=print):
+    """Kolom log(1 + derajat) per relasi untuk Eksperimen 7a.
+
+    Struktur relasi dibaca dari <data_dir>/hetero/<dataset>. Derajat dihitung setelah
+    to_bidirected dan remove_self_loop, sama dengan praproses subgraf relasi RA-TFM4GAD
+    tetapi tanpa self-loop. Urutan kolom mengikuti `relations`.
+    """
+    import dgl
+    from dgl.data.utils import load_graphs
+
+    gh = load_graphs(f'{data_dir}/hetero/{dataset}')[0][0]
+    n = x.shape[0]
+    if gh.num_nodes() != n:
+        raise SystemExit(f"[7a] Jumlah node hetero={gh.num_nodes()} vs homo={n}")
+    if not torch.equal(gh.ndata['label'].long().view(-1), y.long().view(-1)):
+        raise SystemExit("[7a] Label hetero dan homo berbeda: urutan node tidak sejajar")
+    if not torch.allclose(gh.ndata['feature'], x):
+        raise SystemExit("[7a] Fitur hetero dan homo berbeda: urutan node tidak sejajar")
+
+    cols = []
+    for r in relations:
+        src, dst = gh.edges(etype=ETYPE_7A[r])
+        g_r = dgl.graph((src, dst), num_nodes=n)
+        g_r = dgl.remove_self_loop(dgl.to_bidirected(g_r))
+        deg = g_r.in_degrees().float()
+        log(f"[7a] {r}: {int((deg > 0).sum())} node bertetangga, "
+            f"{g_r.num_edges()} edge berarah tanpa self-loop")
+        cols.append(torch.log1p(deg).unsqueeze(-1))
+    return torch.cat(cols, dim=1)
+
+
 # ---------------- Main ---------------- #
 def main():
     parser = argparse.ArgumentParser(description="Graph anomaly detection with TabPFN classifier")
@@ -58,7 +94,22 @@ def main():
                         help="Ukuran in-context set; wajib bersama --split_file")
     parser.add_argument('--tag', type=str, default='',
                         help="Bila diisi, log ditulis ke log/<dataset>_<tag>.log")
+
+    # ---- Eksperimen 7a (default mati: tanpa argumen ini perilaku lama tidak berubah) ----
+    parser.add_argument('--rel_degree', type=str, default=None,
+                        help="Eksperimen 7a: tambahkan kolom log(1 + derajat) per relasi, "
+                             "misalnya 'rur' atau 'rur,rtr,rsr'")
     args = parser.parse_args()
+    rel_degree = None
+    if args.rel_degree:
+        rel_degree = [r.strip() for r in args.rel_degree.split(',') if r.strip()]
+        if args.dataset != 'yelp':
+            raise SystemExit("--rel_degree hanya untuk yelp")
+        if not rel_degree or any(r not in ETYPE_7A for r in rel_degree) \
+                or len(set(rel_degree)) != len(rel_degree):
+            raise SystemExit(f"--rel_degree tidak sah: {args.rel_degree}. Pilihan: {list(ETYPE_7A)}")
+        if not args.tag:
+            raise SystemExit("Beri --tag agar log Eksperimen 7a tidak tercampur ke log lama")
     if (args.split_file is None) != (args.n_labels is None):
         raise SystemExit("--split_file dan --n_labels harus diberikan bersamaan")
     if args.split_file and not args.tag:
@@ -91,6 +142,12 @@ def main():
     n_splits = test_masks.shape[1]
     logger.info(f"Loaded graph with {g.num_nodes()} nodes, splits={n_splits}")
 
+    # ---------------- Eksperimen 7a: hitung kolom derajat sebelum augmentasi ---------------- #
+    deg_cols = None
+    if rel_degree:
+        deg_cols = relation_degree_columns(args.data_dir, args.dataset, rel_degree, x, y,
+                                           log=logger.info)
+
     
     # ---------------- Eksperimen 4: ganti train mask ---------------- #
     if args.split_file:
@@ -108,6 +165,14 @@ def main():
     else:
         logger.info(f"Using raw node features, final_dim={x.shape[1]}")
         features = x
+
+    # ---------------- Eksperimen 7a: tempel kolom derajat di akhir ---------------- #
+    if deg_cols is not None:
+        base_dim = features.shape[1]
+        features = torch.cat([features, deg_cols.to(features.dtype)], dim=1)
+        logger.info(f"[7a] kolom derajat {rel_degree} ditempel: final_dim {base_dim} -> {features.shape[1]}")
+        if base_dim != 114 or features.shape[1] != base_dim + len(rel_degree):
+            raise SystemExit(f"[7a] Dimensi tidak sesuai: {base_dim} -> {features.shape[1]}")
 
     # Convert features/labels to numpy
     features_np = features.cpu().numpy()
