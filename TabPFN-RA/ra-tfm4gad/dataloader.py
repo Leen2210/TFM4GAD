@@ -1,25 +1,11 @@
 """
-dataloader.py — versi RA-TFM4GAD.
-
 Menambahkan load_data_hetero() di samping load_data() milik baseline.
-
-Prinsip yang dikunci (lihat REVISI item C3 dan C6):
-  - STRUKTUR GRAF per relasi diambil dari datasets/hetero/<dataset>
-  - FITUR, LABEL, dan MASK diambil dari datasets/<dataset> (file homogen)
-    karena kedua file memuat split yang BERBEDA (irisan nol).
-  - Tiap subgraf relasi menjalani rantai praproses yang identik dengan baseline.
-  - Graf homogen tetap dikembalikan, karena xchar dan xlap dihitung darinya
-    agar cache terpakai dan xlap identik dengan baseline.
 """
 
 import dgl
 import torch
 from dgl.data.utils import load_graphs
 
-# Urutan relasi DIKUNCI mengikuti proposal: [xnbr_RUR || xnbr_RTR || xnbr_RSR].
-# Jangan mengambil urutan dari gh.canonical_etypes — file mengembalikan
-# ('net_rsr', 'net_rtr', 'net_rur'), sehingga semantik kolom di laporan
-# tidak akan cocok dengan kode.
 RELATION_ORDER = ("rur", "rtr", "rsr")
 RELATION_ETYPE = {"rur": "net_rur", "rtr": "net_rtr", "rsr": "net_rsr"}
 
@@ -33,7 +19,6 @@ def standard_scale(x, dim=0, eps=1e-6):
 
 
 def load_data(dataset, root, n_anomalies=20, feat_trans='no'):
-    """Jalur baseline TFM4GAD — JANGAN diubah, dipakai sebagai kontrol."""
     g = load_graphs(f'{root}/{dataset}')[0][0]
     x = g.ndata.pop('feature')
     y = g.ndata.pop('label')
@@ -70,14 +55,7 @@ def _build_relation_subgraph(gh, etype, num_nodes):
     Bangun subgraf satu relasi dengan praproses identik baseline.
 
     num_nodes WAJIB eksplisit. Tanpa itu, node berindeks tinggi yang tidak
-    muncul di daftar edge akan hilang dari graf — pada R-U-R ada 22.123 node
-    terisolasi, sehingga penjajaran baris terhadap fitur/label/mask akan
-    rusak secara senyap.
-
-    Catatan: sengaja TIDAK menyetel atribut .name. Subgraf relasi hanya
-    dipakai untuk xnbr; kalau suatu saat keliru diteruskan ke
-    get_laplacian_pe(), ketiadaan .name membuatnya gagal keras alih-alih
-    menulis cache xlap baru yang salah.
+    muncul di daftar edge akan hilang dari graf.
     """
     src, dst = gh.edges(etype=etype)
     g_r = dgl.graph((src, dst), num_nodes=num_nodes)
@@ -90,8 +68,6 @@ def _build_relation_subgraph(gh, etype, num_nodes):
 def load_data_hetero(dataset, root, n_anomalies=20, feat_trans='no',
                      relations=RELATION_ORDER, verbose_fn=print):
     """
-    Muat data untuk RA-TFM4GAD.
-
     Returns
     -------
     g_homo      : graf homogen terpraproses (sumber xchar dan xlap), .name = dataset
@@ -112,8 +88,7 @@ def load_data_hetero(dataset, root, n_anomalies=20, feat_trans='no',
         val_masks = g.ndata.pop('val_masks')[:, 10:].bool()
         test_masks = g.ndata.pop('test_masks')[:, 10:].bool()
     else:
-        # PERINGATAN: cabang ini adalah protokol FULLY-SUPERVISED (kolom 0-9),
-        # bukan setting label scarcity. Lihat REVISI item C2.
+        # cabang ini adalah protokol FULLY-SUPERVISED (kolom 0-9),
         train_masks = g.ndata.pop('train_masks')[:, :10].bool()
         val_masks = g.ndata.pop('val_masks')[:, :10].bool()
         test_masks = g.ndata.pop('test_masks')[:, :10].bool()
@@ -134,11 +109,10 @@ def load_data_hetero(dataset, root, n_anomalies=20, feat_trans='no',
             f"Jumlah node tidak sama: hetero={gh.num_nodes()} vs homo={num_nodes}")
     if not torch.equal(gh.ndata['label'].long().view(-1), y.long().view(-1)):
         raise RuntimeError(
-            "Vektor label hetero dan homo BERBEDA — urutan node tidak sejajar. "
-            "Hentikan; seluruh perbandingan akan tidak sah.")
+            "Vektor label hetero dan homo BERBEDA sehingga urutan node tidak sejajar. ")
     if not torch.allclose(gh.ndata['feature'], x):
         raise RuntimeError(
-            "Matriks fitur hetero dan homo BERBEDA — urutan node tidak sejajar.")
+            "Matriks fitur hetero dan homo BERBEDA sehingga urutan node tidak sejajar.")
     verbose_fn(f"[guard] penjajaran node hetero/homo OK (n={num_nodes})")
 
     # ---------- 4. Subgraf per relasi ----------

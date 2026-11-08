@@ -143,7 +143,7 @@ def compute_degree_encoding(
         graph: dgl.DGLGraph,
         log: bool = True,
 ) -> torch.Tensor:
-    degrees = 0.5 * (graph.in_degrees() + graph.out_degrees())
+    degrees = 0.5 * (graph.in_degrees() + graph.out_degrees()) #nilainya sama dengan in_degree atau out_degree di yelp
     if log:
         degrees = torch.log(1 + degrees)
     return degrees.unsqueeze(-1)
@@ -151,7 +151,7 @@ def compute_degree_encoding(
 
 def compute_pagerank(
         graph: dgl.DGLGraph,
-        alpha: float = 0.85,
+        alpha: float = 0.85, 
         max_iterations: int = 100,
         tol=1e-6,
         log: bool = True,
@@ -407,18 +407,18 @@ def augment_node_features(
             )
         else:
             h_aug = base_feat
-        features.append(h_aug)
+        features.append(h_aug) #hasilkan xnbr ukuran 45.954 x 96
 
     # ---- 2. Degree encoding ----
     if conf.get("degree", {}).get("enable", False):
         deg_conf = conf["degree"]
         deg_feat = compute_degree_encoding(graph, log=deg_conf.get("log", True))
-        features.append(deg_feat)
+        features.append(deg_feat) #hasilkan derajat ukuran (45.954, 1)
 
     # ---- 3. PageRank ----
     if conf.get("pagerank", {}).get("enable", False):
         pr_conf = conf["pagerank"]
-        pr_feat = compute_pagerank(
+        pr_feat = compute_pagerank( #pakai default
             graph,
             alpha=pr_conf.get("alpha", 0.85),
             max_iterations=pr_conf.get("max_iterations", 100),
@@ -426,7 +426,7 @@ def augment_node_features(
             log=pr_conf.get("log", True),
             cache_dir=pr_conf.get("cache_dir", "./pagerank_cache")
         )
-        features.append(pr_feat)
+        features.append(pr_feat) #hasilkan derajat ukuran (45.954, 1)
 
     # ---- 4. Laplacian PE ----
     if conf.get("laplacian_pe", {}).get("enable", False):
@@ -440,7 +440,7 @@ def augment_node_features(
             approx_threshold=lap_conf.get("approx_threshold", 100_000),
             approx_method=lap_conf.get("approx_method", "randomized_svd")
         )
-        features.append(lap_feat)
+        features.append(lap_feat) #hasilkan derajat ukuran (45.954, 16)
 
     # ---- Concatenate all features along last dimension ----
     augmented_feat = torch.cat(

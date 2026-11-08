@@ -136,11 +136,10 @@ def main():
                 f"(diharapkan {exp_dim})")
     if features.shape[1] != exp_dim:
         raise SystemExit(
-            f"Dimensi tidak sesuai: {features.shape[1]} != {exp_dim}. "
-            "Hentikan — ada kesalahan konstruksi fitur, angka apa pun tidak layak dipercaya.")
+            f"Dimensi tidak sesuai: {features.shape[1]} != {exp_dim}. ")
     if features.shape[1] > 500:
         logger.info(f"PERINGATAN: {features.shape[1]} kolom MELEBIHI ambang "
-                    f"max_features_per_estimator=500 — subsampling fitur akan aktif "
+                    f"max_features_per_estimator=500 -> subsampling fitur akan aktif "
                     f"dan perbandingan antar-operator tidak lagi setara.")
 
     features_np = features.cpu().numpy()
