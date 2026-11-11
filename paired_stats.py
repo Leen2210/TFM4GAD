@@ -49,7 +49,7 @@ COMPARISONS = (
     + [("AUPRC", "A4 - A1", "A4_100", "A1_100")]
     + [("AUROC", f"concat - {k}", "A4_100", f"{k}_100") for k in ("hybrid", "max", "mean")]
     + [("AUROC", "max - mean", "max_100", "mean_100"),
-       ("AUROC", "mean - TFM4GAD", "mean_100", "TFM_100")
+       ("AUROC", "mean - TFM4GAD", "mean_100", "TFM_100")]
 
     + [(m, "D_derajat: 7b penuh - A1", "7b3_100", "A1_100") for m in ("AUROC", "AUPRC")]
     + [(m, "D_tetangga: A4 - 7b penuh", "A4_100", "7b3_100") for m in ("AUROC", "AUPRC")]
@@ -71,7 +71,7 @@ COMPARISONS = (
        ("AUPRC", "7a-3 - 7a-1", "7a3_100", "7a1_100"),
        ("AUPRC", "concat - mean", "A4_100", "mean_100"),
        ("AUPRC", "Penurunan A2: concat - mean", "A2_100", "A2mean_100"),
-       ("AUPRC", "Penurunan A3: concat - mean", "A3_100", "A3mean_100")]]
+       ("AUPRC", "Penurunan A3: concat - mean", "A3_100", "A3mean_100")]
 )
 
 LINE = re.compile(r"AUROC=([\d.]+)%, AUPRC=([\d.]+)%")
