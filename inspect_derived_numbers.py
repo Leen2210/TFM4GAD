@@ -1,34 +1,3 @@
-"""
-inspect_derived_numbers.py — melengkapi dua skrip diagnostik yang sudah ada.
-
-Dua skrip terdahulu mencetak angka DASAR:
-  - inspect_yelp_graph.py            : jumlah edge per relasi, H(r), statistik fraud
-  - inspect_relation_preprocess.py   : simetri, efek praproses, node terisolasi
-
-Skrip ini mencetak dua hal yang belum pernah dihitung skrip manapun:
-
-  BAGIAN A  Seluruh angka TURUNAN yang dipakai Bab III tetapi selama ini
-            dihitung tangan (pangsa edge, jumlah tak-berarah, tumpang tindih
-            lintas relasi, rasio anomali kelompok terisolasi).
-            Tumpang tindih 178.695 dihitung lewat irisan himpunan pasangan,
-            bukan lewat pengurangan, sehingga menjadi verifikasi independen.
-
-  BAGIAN B  Distribusi RASIO BOBOT NORMALISASI per relasi, yaitu seberapa besar
-            kontribusi seorang tetangga teredam ketika normalisasi derajat
-            dihitung dari graf gabungan alih-alih dari subgraf relasinya sendiri.
-            Angka ini dibutuhkan oleh Bab III bagian Analisis Masalah dan oleh
-            gambar ilustrasi peredaman.
-
-CATATAN PENTING
-  Angka 69 yang sempat tercatat di berkas revisi BUKAN faktor peredaman.
-  69,0 adalah rasio jumlah edge R-S-R terhadap R-U-R. Faktor peredaman
-  ditentukan oleh derajat per-node, dan itulah yang dihitung Bagian B.
-
-Pemakaian:
-  python inspect_derived_numbers.py --data_dir ../../datasets
-  python inspect_derived_numbers.py --data_dir ../../datasets --dump_csv rasio_rur.csv
-"""
-
 import argparse
 import os
 
@@ -108,7 +77,7 @@ def main():
     gm_olah = praproses(gm)
 
     # ------------------------------------------------------------------ DASAR
-    sep("0. ANGKA DASAR (pembanding terhadap skrip terdahulu)")
+    sep("0. ANGKA DASAR")
     print("num_nodes            : %d" % n)
     print("n_fraud              : %d" % n_fraud)
     print("rasio anomali        : %.4f%%   (pembulatan terpublikasi: 14,5%%)" %
@@ -160,7 +129,6 @@ def main():
           % (gm.num_edges(), n, gm.num_edges() - n, (gm.num_edges() - n) // 2))
     cocok = (gm.num_edges() - n) // 2 == len(gabungan)
     print("  cocok dengan hasil deduplikasi : %s" % ("YA" if cocok else "TIDAK"))
-    print("  angka terpublikasi README      : 3846979")
 
     # -------------------------------------------------------------- BAGIAN A3
     sep("A3. RASIO ANOMALI: KELOMPOK TERISOLASI VERSUS BERTETANGGA")
@@ -192,7 +160,7 @@ def main():
     print("keluar tepat nol: %d dari %d kolom." % (nol, tot))
 
     # ------------------------------------------------------------- BAGIAN B
-    sep("B. RASIO BOBOT NORMALISASI — SUBGRAF SENDIRI VERSUS GRAF GABUNGAN")
+    sep("B. RASIO BOBOT NORMALISASI —> SUBGRAF SENDIRI VERSUS GRAF GABUNGAN")
     print("Untuk tiap edge (i, j) pada relasi r:")
     print("  w_gab(i,j) = 1 / sqrt( d_gab(i) * d_gab(j) )")
     print("  w_sub(i,j) = 1 / sqrt( d_sub(i) * d_sub(j) )")
@@ -218,23 +186,22 @@ def main():
 
     kode, rasio_rur, s_rur = simpan
     print()
-    print("ANGKA UNTUK BAB III (relasi R-U-R):")
+    print("ANGKA UNTUK relasi R-U-R:")
     print("  median rasio bobot        : %.2f" % s_rur["median"])
     print("  rentang antar-kuartil     : %.2f - %.2f" % (s_rur["q1"], s_rur["q3"]))
     print("  jumlah edge yang diukur   : %d pasangan" % len(rasio_rur))
     print()
-    print("PEMBANDING — angka 69 yang KELIRU dipakai sebagai faktor peredaman:")
     print("  rasio jumlah edge R-S-R : R-U-R = %.1f" %
           (len(mentah["net_rsr"][0]) / len(mentah["net_rur"][0])))
     print("  faktor peredaman sebenarnya (median) = %.2f" % s_rur["median"])
     print("  keduanya besaran berbeda dan tidak boleh dipertukarkan.")
 
-    # satu contoh node nyata untuk gambar ilustrasi
+    # satu contoh node nyata
     idx = int(np.argmin(np.abs(rasio_rur - s_rur["median"])))
     i_c = int(kode[idx] // n)
     j_c = int(kode[idx] % n)
     print()
-    print("CONTOH NODE UNTUK GAMBAR ILUSTRASI (rasio paling dekat median):")
+    print("CONTOH NODE (rasio paling dekat median):")
     print("  pasangan node   : i = %d, j = %d" % (i_c, j_c))
     print("  derajat gabungan: d(i) = %d, d(j) = %d" % (int(d_gab[i_c]), int(d_gab[j_c])))
     d_sub_rur = olah["net_rur"].in_degrees().double()
@@ -249,9 +216,6 @@ def main():
                    delimiter=",", header="node_i,node_j,rasio_bobot", comments="",
                    fmt=["%d", "%d", "%.6f"])
         print("\nSeluruh rasio R-U-R disimpan ke %s" % args.dump_csv)
-
-    sep("SELESAI")
-    print("Seluruh angka di atas sebelumnya dihitung tangan atau belum pernah dihitung.")
 
 
 if __name__ == "__main__":

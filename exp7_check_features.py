@@ -17,9 +17,9 @@ ROOT = Path(__file__).resolve().parent
 RA_DIR = ROOT / "TabPFN-RA" / "ra-tfm4gad"
 sys.path.insert(0, str(RA_DIR))
 
-from augment import augment_node_features_ra, expected_final_dim  # noqa: E402
-from dataloader import RELATION_ORDER, load_data_hetero  # noqa: E402
-from misc import get_training_config  # noqa: E402
+from augment import augment_node_features_ra, expected_final_dim  
+from dataloader import RELATION_ORDER, load_data_hetero  
+from misc import get_training_config  
 
 
 def build_features(data_dir, dataset):
